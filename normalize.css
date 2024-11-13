@@ -1,0 +1,78 @@
+/* Basic reset for all elements */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Remove default body margin */
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #fff;
+    color: #333;
+}
+
+/* Headings reset */
+h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: normal;
+}
+
+/* Reset list styling */
+ul, ol {
+    list-style: none;
+}
+
+/* Reset anchor styling */
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* Reset for buttons */
+button {
+    background: none;
+    border: none;
+    padding: 0;
+    font: inherit;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Input and button reset */
+input, button, textarea, select {
+    font: inherit;
+    color: inherit;
+    background: none;
+    border: none;
+    padding: 0;
+}
+
+/* Textarea adjustments */
+textarea {
+    resize: vertical;
+    overflow: auto;
+}
+
+/* Adjust media elements */
+img,
+video {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Basic table reset */
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+

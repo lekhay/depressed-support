@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mental Health Support Platform</title>
+    <style>
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #388E3C;
+            --text-color: #333;
+            --background-color: #f5f7fa;
+            --card-background: #ffffff;
+            --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        h1 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: var(--primary-dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .section {
+            background: var(--card-background);
+            margin-bottom: 2rem;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: var(--transition);
+        }
+
+        .section:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(1px);
+        }
+
+        .toggle-auth {
+            text-align: center;
+            margin-top: 1rem;
+            color: var(--text-color);
+        }
+
+        .toggle-auth a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .toggle-auth a:hover {
+            text-decoration: underline;
+        }
+
+        .suggestions {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .suggestions h3 {
+            color: var(--primary-dark);
+            margin-bottom: 1rem;
+        }
+
+        .suggestions ul {
+            list-style: none;
+        }
+
+        .suggestions li {
+            padding: 8px 0;
+            margin: 4px 0;
+            padding-left: 24px;
+            position: relative;
+        }
+
+        .suggestions li::before {
+            content: "•";
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            position: absolute;
+            left: 0;
+            top: 4px;
+        }
+
+        #moodList {
+            list-style: none;
+        }
+
+        #moodList li {
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>Mental Health Support Platform</h1>
+
+    <!-- Login Section (shown by default) -->
+    <div id="loginSection" class="section">
+        <h2>Login</h2>
+        <input type="email" id="loginEmail" placeholder="Email" required>
+        <input type="password" id="loginPassword" placeholder="Password" required>
+        <button onclick="loginUser()">Login</button>
+        <div class="toggle-auth">
+            Don't have an account? <a onclick="toggleAuth()">Register here</a>
+        </div>
+    </div>
+
+    <!-- Registration Section (hidden by default) -->
+    <div id="registerSection" class="section" style="display: none;">
+        <h2>Register</h2>
+        <input type="text" id="name" placeholder="Name" required>
+        <input type="email" id="email" placeholder="Email" required>
+        <input type="password" id="password" placeholder="Password" required>
+        <button onclick="registerUser()">Register</button>
+        <div class="toggle-auth">
+            Already have an account? <a onclick="toggleAuth()">Login here</a>
+        </div>
+    </div>
+
+    <div id="moodSection" class="section" style="display: none;">
+        <h2>Track Your Mood</h2>
+        <textarea id="moodInput" placeholder="How do you feel today?"></textarea>
+        <textarea id="reasonInput" placeholder="Why do you feel this way?"></textarea>
+        <button onclick="recordMood()">Record Mood</button>
+
+        <div id="suggestions" class="suggestions">
+            <h3>Suggested Activities</h3>
+            <ul>
+                <li>Deep breathing exercises</li>
+                <li>10-minute meditation session</li>
+                <li>Gentle yoga stretches</li>
+                <li>Read a calming book</li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="moodRecords" class="section" style="display: none;">
+        <h2>Mood Records</h2>
+        <ul id="moodList"></ul>
+    </div>
+
+    <script>
+        const apiUrl = 'http://localhost:3000';
+
+        function toggleAuth() {
+            const loginSection = document.getElementById('loginSection');
+            const registerSection = document.getElementById('registerSection');
+            
+            if (loginSection.style.display === 'none') {
+                loginSection.style.display = 'block';
+                registerSection.style.display = 'none';
+            } else {
+                loginSection.style.display = 'none';
+                registerSection.style.display = 'block';
+            }
+        }
+
+        async function registerUser() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            const response = await fetch(`${apiUrl}/users/register`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            });
+            const data = await response.json();
+            alert(data.message);
+            if (response.ok) {
+                toggleAuth(); // Show login section after successful registration
+            }
+        }
+
+        async function loginUser() {
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+
+            const response = await fetch(`${apiUrl}/users/login`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            });
+            const data = await response.json();
+            if (response.ok) {
+                localStorage.setItem('userId', data.userId);
+                document.getElementById('loginSection').style.display = 'none';
+                document.getElementById('moodSection').style.display = 'block';
+                fetchMoodRecords();
+            } else {
+                alert(data.message);
+            }
+        }
+
+        async function recordMood() {
+            const mood = document.getElementById('moodInput').value;
+            const reason = document.getElementById('reasonInput').value;
+            const userId = localStorage.getItem('userId');
+
+            if (!userId) {
+                alert('Please log in to record your mood.');
+                return;
+            }
+
+            const response = await fetch(`${apiUrl}/mood`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, mood, reason })
+            });
+            const data = await response.json();
+            alert(data.message);
+            if (response.ok) {
+                fetchMoodRecords();
+            }
+        }
+
+        async function fetchMoodRecords() {
+            const userId = localStorage.getItem('userId');
+            const response = await fetch(`${apiUrl}/mood?userId=${userId}`);
+            const data = await response.json();
+
+            const moodList = document.getElementById('moodList');
+            moodList.innerHTML = '';
+            data.moods.forEach(record => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `Mood: ${record.mood}, Reason: ${record.reason}, Time: ${new Date(record.timestamp).toLocaleString()}`;
+                moodList.appendChild(listItem);
+            });
+            document.getElementById('moodRecords').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
